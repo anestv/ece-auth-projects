@@ -1,18 +1,10 @@
 /*
- *	File	: pc.c
- *
  *	Title	: Demo Producer/Consumer.
- *
- *	Short	: A solution to the producer consumer problem using
- *		pthreads.	
- *
- *	Long 	:
- *
+ *	Short	: A solution to the producer consumer problem using pthreads.
  *	Author	: Andrae Muys
- *
  *	Date	: 18 September 1997
  *
- *	Revised	:
+ *	Revised	: Anestis V., March 2021
  */
 
 #include <pthread.h>
@@ -215,15 +207,6 @@ void printTime(int time_us)
   }
 }
 
-/*
-  typedef struct {
-  workFunction buf[QUEUESIZE];
-  long head, tail;
-  int full, empty;
-  pthread_mutex_t *mut;
-  pthread_cond_t *notFull, *notEmpty;
-  } queue;
-*/
 
 queue *queueInit ()
 {
