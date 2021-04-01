@@ -10,9 +10,9 @@ for q in 320 350 370 400 420 `seq 450 10 590` 620 650 750 900 1000; do
 done
 
 for f in `ls results`;do
-	echo "$f" >> results/var.txt
+	printf "$f\t" >> results/var.txt # using echo would add a newline
 	tail -n1 results/$f | grep -Po "\d+\.\d" >>results/var.txt
-	echo "$f" >> results/mean.txt
+	printf "$f\t" >> results/mean.txt
 	head -n1 results/$f | grep -Po "\d+\.\d" >>results/mean.txt
 done
 

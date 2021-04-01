@@ -6,15 +6,15 @@ for p in 5 10 15 20; do
 	
 		q=$(( p * i ));
 		
-		"./prod-cons" $p $q | tail -n2 > "results/$p-$q.txt"
+		"./prod-cons" $p $q | tail -n2 > "results/$p-$q"
 	
 	done
 done
 
 for f in `ls results`;do
-	echo "$f" >> results/var.txt
+	printf "$f\t" >> results/var.txt # using echo would add a newline
 	tail -n1 results/$f | grep -Po "\d+\.\d" >>results/var.txt
-	echo "$f" >> results/mean.txt
+	printf "$f\t" >> results/mean.txt
 	head -n1 results/$f | grep -Po "\d+\.\d" >>results/mean.txt
 done
 
