@@ -8,7 +8,7 @@
 #include "common.h"
 
 
-void every10sec(int sig , siginfo_t *si, void *uc){
+void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 	
 	printTimeSinceStart();
 	
@@ -28,7 +28,7 @@ void every10sec(int sig , siginfo_t *si, void *uc){
 	
 	macaddress nearestMac = BTnearMe();
 	
-	printf("Scanned %lx\n", nearestMac);
+	printf("Scanned %llx\n", nearestMac);
 	
 	if (isACloseContact(nearestMac))
 		newCloseContact(nearestMac);

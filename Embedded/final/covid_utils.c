@@ -115,7 +115,7 @@ bool isACloseContact(macaddress testMac){
 void newCloseContact(macaddress newMac){
 	// add (mac, currTime) to closeContacts, sorted
 	
-	printf("Close contact! %lx\n", newMac);
+	printf("Close contact! %llx\n", newMac);
 	
 	if (closeContactsSize == 0){
 	
