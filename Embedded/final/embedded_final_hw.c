@@ -1,5 +1,4 @@
 
-#include <time.h>
 #include <limits.h>
 #include <signal.h>
 #include <unistd.h>
@@ -49,16 +48,6 @@ void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 	
 	//printf("End of every10sec\n");
 	//printTimeSinceStart();
-	
-	/*
-	double dd;
-	long long i = 1, pr = 1;
-	for (; i < 5e7; i++){
-		pr *= i;
-		pr %= 10111000111;
-		dd = (double)pr / rand();
-	}
-	printf("   %lld %lld %lf \n", i, pr, dd);*/
 }
 
 /*
@@ -83,8 +72,7 @@ int main(){
 	
 	
 	/* Establish handler for timer signal */
-	/*printf("Establishing handler for signal %d\n", SIG);
-	struct sigaction sa;
+	/* struct sigaction sa;
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = every10sec; // the function to be called
 	//sigemptyset(&sa.sa_mask);
@@ -94,16 +82,14 @@ int main(){
 	signal(SIG, every10sec);
 	
 	
-	
 	/* Create the timer */
 	timer_t timerid;
 	struct sigevent sev;
-	const int CLOCKID = CLOCK_REALTIME; //TODO what to choose? #define?
 	
 	sev.sigev_notify = SIGEV_SIGNAL;//SIGEV_THREAD;//SIGEV_SIGNAL; // raise signal when timer expires
 	sev.sigev_signo = SIG;
 	//sev.sigev_value.sival_ptr = &timerid; // no need?
-	if (timer_create(CLOCKID, &sev, &timerid) != 0)
+	if (timer_create(CLOCK_REALTIME, &sev, &timerid) != 0)
 		errExit("timer_create");
 	
 	//TODO we may need a different thread or process to handle the signals, because in main() sleeps..
@@ -126,14 +112,12 @@ int main(){
 	
 	for (unsigned int t;;){
 	
-		//TODO what to do here?
+		// do nothing and wait for interrupts
 		t = sleep(UINT_MAX);
 		//printf("%u\n", t);
 	}
 	
 	return 0;
 }
-
-
 
 

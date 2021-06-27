@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>
 
 #define SPEEDUP 40 // TODO revert to 100
 // run this much faster
@@ -56,9 +57,9 @@ void uploadContacts(const closecontact * const, int);
 // Notice: The uploadContacts() signature is different than the suggested
 
 void cleanOldCloseCont();
-bool isACloseContact(macaddress);
-void newCloseContact(macaddress);
-void overwriteRecentContact(macaddress);
+bool isACloseContact(const macaddress);
+void newCloseContact(const macaddress);
+void overwriteRecentContact(const macaddress);
 
 
 // time_utils.c

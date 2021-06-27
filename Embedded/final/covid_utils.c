@@ -1,5 +1,4 @@
 
-#include <time.h>
 #include "common.h"
 
 const macaddress macAddrList[] = {0x9235d08e69ab, 0x0ef0abe3f96a, 0x47cc2ff51178, 0xdec2be41f22f, 
@@ -110,7 +109,7 @@ closeContacts : (mac, last seen on)
 */
 
 
-void overwriteRecentContact(macaddress nearestMac){
+void overwriteRecentContact(const macaddress nearestMac){
 	
 	recentContactsIdx++;
 	if (recentContactsIdx == RECENT_CONTACTS_LENGTH)
@@ -119,7 +118,7 @@ void overwriteRecentContact(macaddress nearestMac){
 	recentContacts[recentContactsIdx] = nearestMac;
 }
 
-bool isACloseContact(macaddress testMac){
+bool isACloseContact(const macaddress testMac){
 // Performs a linear search in circular array recentContacts
 // Time seen > 4min, that's why we skip interval [currIndex - 23 , currIndex]
 
@@ -151,15 +150,17 @@ bool isACloseContact(macaddress testMac){
 	return 0;
 }
 
-void newCloseContact(macaddress newMac){
+void newCloseContact(const macaddress newMac){
 	// add (mac, currTime) to closeContacts, sorted
 	
 	printf("Close contact! %llx\n", newMac);
 	
+	const time_t currTime = time(NULL); // current time in seconds since epoch
+	
 	if (closeContactsSize == 0){
 	
 		closeContacts[0].mac = newMac;
-		closeContacts[0].lastSeen = time(NULL); // current time in seconds since spoch
+		closeContacts[0].lastSeen = currTime;
 		
 		closeContactsSize = 1;
 		return;
@@ -180,7 +181,7 @@ void newCloseContact(macaddress newMac){
 	
 	if (closeContacts[pos].mac == newMac){
 		// it already exists!
-		closeContacts[pos].lastSeen = time(NULL);
+		closeContacts[pos].lastSeen = currTime;
 	
 	} else {
 		// are we in the right place to insert mac?
@@ -191,7 +192,7 @@ void newCloseContact(macaddress newMac){
 			// move them one place right
 		
 		closeContacts[lo].mac = newMac;
-		closeContacts[lo].lastSeen = time(NULL);
+		closeContacts[lo].lastSeen = currTime;
 		printf(" at pos %d\n", lo);
 		
 		closeContactsSize++;
