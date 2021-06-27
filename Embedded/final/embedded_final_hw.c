@@ -8,20 +8,31 @@
 #include "common.h"
 
 
+//TODO remove?
+extern closecontact closeContacts[CLOSE_CONTACTS_LENGTH];
+extern unsigned int closeContactsSize;
+
 void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 	
 	printTimeSinceStart();
 	
 	
-	static int secondsSinceLastTest = 0; //TODO maybe declare as global
-	secondsSinceLastTest += 10;
-	if (secondsSinceLastTest >= TESTING_INTERVAL_SECONDS){
+	static unsigned int periodsSinceLastTest = 0;
+	periodsSinceLastTest ++;
+	if (periodsSinceLastTest >= TESTING_INTERVAL_PERIODS){
 		
-		secondsSinceLastTest = 0;
+		periodsSinceLastTest = 0;
 		
+		cleanOldCloseCont();
+		
+		// do a covid test
 		if (testCOVID()){
-			// TODO notify close contacts
-			printf("Covid test positive!\n");
+		
+			printf("+ Covid test positive!\n");
+			uploadContacts(closeContacts, closeContactsSize);
+			
+		} else {
+			printf("- Covid test negative\n");
 		}
 	}
 	

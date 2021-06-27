@@ -20,10 +20,6 @@ const macaddress macAddrList[] = {0x9235d08e69ab, 0x0ef0abe3f96a, 0x47cc2ff51178
 0xc808c177a7a1, 0xbdae97fd8ec8, 0xc871fac42e65, 0x7e4f7e9f0123, 0x186c96f68023, 0x11686eaa9284, 
 0xe89b4d410a4c, 0x4183196bda57, 0x6448e1d90fff, 0x1053d341bd54, 0x7134432ce429, 0xa13535573325 };
 
-typedef struct {
-	macaddress mac;
-	time_t lastSeen;
-} closecontact;
 
 closecontact closeContacts[CLOSE_CONTACTS_LENGTH];
 unsigned int closeContactsSize = 0;
@@ -52,10 +48,53 @@ macaddress BTnearMe(){
 	//return macAddrList[index];
 }
 
-void uploadContacts(macaddress* macList, int dontknow){ // TODO what is the int for?
+// Notice: The funtion signature is different than the suggested
+void uploadContacts(const closecontact* const closeContacts, const int CClength){ // TODO what is the int for? size perhaps?
 	
-	//TODO
+	char filename[30]; // 10 digits + 10 chars + \0 + extra
+	sprintf(filename, "upload%10ld.bin", time(NULL));
 	
+	FILE *file = fopen(filename, "wb");
+	
+	if (file == NULL) {
+        fprintf(stderr,"Error writing upload to file\n");
+        return;
+    }
+    
+    fwrite(&CClength, sizeof(int), 1, file);
+    fwrite(closeContacts, sizeof(closecontact), CClength, file);
+    
+    fclose(file);
+}
+
+
+void cleanOldCloseCont(){
+	
+	const time_t currTime = time(NULL); // current datetime in seconds since epoch
+	// time() could cause an error because it gives the actual time, not sped-up
+	// This is why we use MAX_REALTIME_REMEMBER_CLOSECONT , which is 100 times less
+	
+	unsigned int writePos = 0, readPos = 0;
+	
+	while (readPos < closeContactsSize){
+	
+		if (closeContacts[readPos].lastSeen < currTime - MAX_REALTIME_REMEMBER_CLOSECONT) {
+			// no longer a close contact. Discard it.
+			// Next readPos, same writePos
+			readPos++;
+			
+		} else {
+			// still a close contact.
+			// move it forward, skipping discarded places
+			
+			// TODO is this correct?
+			closeContacts[writePos] = closeContacts[readPos];
+			writePos++;
+			readPos++;
+		}
+	}
+	
+	closeContactsSize = writePos;
 }
 
 /*

@@ -28,5 +28,6 @@ raspberry-run: raspberry
 
 clean:
 	rm -f embedded_final_hw raspberry
+	rm -f *.bin
 # -f so that it doesn't throw error when files don't exist
 
