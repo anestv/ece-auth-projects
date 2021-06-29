@@ -51,13 +51,13 @@ void uploadContacts(const closecontact* const closeContacts, const int CClength)
 	FILE *file = fopen(filename, "wb");
 	
 	if (file == NULL) {
-        fprintf(stderr,"Error writing upload to file\n");
-        return;
-    }
-    
-    fwrite(&CClength, sizeof(int), 1, file);
-    fwrite(closeContacts, sizeof(closecontact), CClength, file);
-    
-    fclose(file);
+		fprintf(stderr,"Error writing upload to file\n");
+		return;
+	}
+
+	fwrite(&CClength, sizeof(int), 1, file);
+	fwrite(closeContacts, sizeof(closecontact), CClength, file);
+
+	fclose(file);
 }
 
