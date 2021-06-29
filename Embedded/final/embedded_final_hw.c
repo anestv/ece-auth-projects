@@ -13,7 +13,7 @@ extern unsigned int closeContactsSize;
 
 void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 	
-	printTimeSinceStart();
+	//printTimeSinceStart();
 	
 	
 	static unsigned int periodsSinceLastTest = 0;
@@ -27,18 +27,18 @@ void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 		// do a covid test
 		if (testCOVID()){
 		
-			printf("+ Covid test positive!\n");
+			//printf("+ Covid test positive!\n");
 			uploadContacts(closeContacts, closeContactsSize);
 			
-		} else {
-			printf("- Covid test negative\n");
+		//} else {
+		//	printf("- Covid test negative\n");
 		}
 	}
 	
 	
-	macaddress nearestMac = BTnearMe();
+	const macaddress nearestMac = BTnearMe();
 	
-	printf("Scanned %llx\n", nearestMac);
+	// printf("Scanned %llx\n", nearestMac);
 	
 	if (isACloseContact(nearestMac))
 		newCloseContact(nearestMac);
@@ -63,13 +63,25 @@ static inline void errExit(char* str){
 }
 
 
-extern struct timeval programStartTime;
+//extern struct timeval programStartTime;
 
 int main(){
-	printf("%d %x\n", RAND_MAX - INT_MAX, RAND_MAX);
-	gettimeofday(&programStartTime, NULL);
 	// store time, so that we can later find the time since start
+	setupTimeAndLog();
 	
+	printFuncCall('A', 0); // program start
+	
+	/*for (int i = 0; i < 10; i++){
+		
+		printFuncCall('B', BTnearMe());
+		sleep(1);
+	}
+	
+	// TODO return these to normal
+	printFuncCall('A', (uint64_t)0xFFFFFFFFFFFFF<<(uint64_t)1);
+	//printf("%d  %d\n", sizeof(long long), sizeof(uint64_t));
+	closeLogFile();
+	return 0;*/
 	
 	/* Establish handler for timer signal */
 	/* struct sigaction sa;
@@ -108,7 +120,9 @@ int main(){
 	signal(SIGINT, printCpuTimeExit);
 	signal(SIGTERM, printCpuTimeExit);
 	
-	printf("main is done\n");
+	
+	printFuncCall('A', 1);
+	//printf("main is done\n"); // TODO remove
 	
 	for (unsigned int t;;){
 	

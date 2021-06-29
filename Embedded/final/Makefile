@@ -14,7 +14,7 @@ all: embedded_final_hw
 embedded_final_hw: $(SRC_C) common.h
 
 raspberry: CC = arm-linux-gnueabi-gcc-9
-raspberry: CFLAGS = -march=armv6zk -mcpu=arm1176jzf-s -mfpu=vfp -marm
+raspberry: CFLAGS = -march=armv6zk -mcpu=arm1176jzf-s -mfpu=vfp -marm -DPRODUCTION
 # Those variables are set only for that rule. For pi zero
 raspberry: $(SRC_C) common.h
 	$(CC) $(CFLAGS) $(SRC_C) $(LDLIBS) -o $@

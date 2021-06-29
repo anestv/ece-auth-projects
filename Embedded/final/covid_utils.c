@@ -19,11 +19,14 @@ const macaddress macAddrList[] = {0x9235d08e69ab, 0x0ef0abe3f96a, 0x47cc2ff51178
 0xc808c177a7a1, 0xbdae97fd8ec8, 0xc871fac42e65, 0x7e4f7e9f0123, 0x186c96f68023, 0x11686eaa9284, 
 0xe89b4d410a4c, 0x4183196bda57, 0x6448e1d90fff, 0x1053d341bd54, 0x7134432ce429, 0xa13535573325 };
 
-// TODO make a function that prints to a single file the times the various functions were caled
 
 bool testCOVID(){
 	
-	return (rand() % 100) < PROB_COVID_PERCENT;
+	const bool res = (rand() % 100) < PROB_COVID_PERCENT;
+	
+	printFuncCall('T', res);
+	
+	return res;
 }
 
 macaddress BTnearMe(){
@@ -32,18 +35,22 @@ macaddress BTnearMe(){
 	
 	int randi = rand();
 	
+	macaddress res;
+	
 	if (randi & 1) // 50-50
-		return macAddrList[(randi >> 1) % MAC_PRESET_LIST_LENGTH];
+		res = macAddrList[(randi >> 1) % MAC_PRESET_LIST_LENGTH];
 	else
-		return (randi >> 1);
+		res = (randi >> 1);
 	
+	printFuncCall('B', res);
 	
-	//int index = rand() % MAC_PRESET_LIST_LENGTH;
-	//return macAddrList[index];
+	return res;
 }
 
 // Notice: The funtion signature is different than the suggested
 void uploadContacts(const closecontact* const closeContacts, const int CClength){
+	
+	printFuncCall('U', CClength);
 	
 	char filename[30]; // 10 digits + 10 chars + \0 + extra
 	sprintf(filename, "upload%10ld.bin", time(NULL));

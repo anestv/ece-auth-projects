@@ -92,7 +92,8 @@ bool isACloseContact(const macaddress testMac){
 void newCloseContact(const macaddress newMac){
 	// add (mac, currTime) to closeContacts, sorted
 	
-	printf("Close contact! %llx\n", newMac);
+	//printf("Close contact! %llx\n", newMac);
+	printFuncCall('C', newMac);
 	
 	const time_t currTime = time(NULL); // current time in seconds since epoch
 	
@@ -132,7 +133,7 @@ void newCloseContact(const macaddress newMac){
 		
 		closeContacts[lo].mac = newMac;
 		closeContacts[lo].lastSeen = currTime;
-		printf(" at pos %d\n", lo);
+		//printf(" at pos %d\n", lo);
 		
 		closeContactsSize++;
 	}

@@ -40,6 +40,8 @@
 #define SIG SIGRTMIN // could also be SIGUSR1
 // which signal to use for 10 second timer
 
+#define LOG_FILENAME "log.bin"
+
 
 typedef uint64_t macaddress;
 typedef uint8_t bool;
@@ -62,10 +64,12 @@ void newCloseContact(const macaddress);
 void overwriteRecentContact(const macaddress);
 
 
-// time_utils.c
+// log_time_utils.c
 
-void printTimeSinceStart();
+//void printTimeSinceStart();
 void printCpuTimeExit();
+void printFuncCall(const char, const uint64_t);
+void setupTimeAndLog();
 
 
 #endif
