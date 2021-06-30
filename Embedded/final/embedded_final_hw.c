@@ -12,9 +12,6 @@ extern unsigned int closeContactsSize;
 
 void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 	
-	//printTimeSinceStart();
-	
-	
 	static unsigned int periodsSinceLastTest = 0;
 	periodsSinceLastTest ++;
 	if (periodsSinceLastTest >= TESTING_INTERVAL_PERIODS){
@@ -26,43 +23,24 @@ void every10sec(int sig /*, siginfo_t *si, void *uc*/){
 		// do a covid test
 		if (testCOVID()){
 		
-			//printf("+ Covid test positive!\n");
 			uploadContacts(closeContacts, closeContactsSize);
-			
-		//} else {
-		//	printf("- Covid test negative\n");
 		}
 	}
 	
-	
 	const macaddress nearestMac = BTnearMe();
-	
-	// printf("Scanned %llx\n", nearestMac);
 	
 	if (isACloseContact(nearestMac))
 		newCloseContact(nearestMac);
 	
 	overwriteRecentContact(nearestMac);
-	
-	
-	//printf("End of every10sec\n");
-	//printTimeSinceStart();
 }
 
-/*
-https://linux.die.net/man/2/timer_settime
-https://linux.die.net/man/2/timer_create
-
-link with -lrt
-*/
 
 static inline void errExit(char* str){
 	puts(str);
 	exit(1);
 }
 
-
-//extern struct timeval programStartTime;
 
 int main(){
 	// store time, so that we can later find the time since start
@@ -111,7 +89,7 @@ int main(){
 	
 	
 	printFuncCall('A', 1);
-	//printf("main is done\n"); // TODO remove
+	// main is done
 	
 	for (unsigned int t;;){
 	
@@ -122,5 +100,4 @@ int main(){
 	
 	return 0;
 }
-
 

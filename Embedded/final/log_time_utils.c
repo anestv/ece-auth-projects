@@ -8,24 +8,6 @@ struct timeval programStartTime;
 
 FILE * logFile;
 
-void printTimeSinceStart(){
-	
-	struct timeval currTime;
-	gettimeofday(&currTime, NULL);
-	
-	long seconds  = currTime.tv_sec - programStartTime.tv_sec;
-	long useconds = currTime.tv_usec- programStartTime.tv_usec;
-	
-	if (useconds < 0){
-		useconds += 1000000;
-		seconds -= 1;
-	}
-	
-	//TODO store in file as binary
-	printf("%ld.%06ld\n", seconds, useconds); //TODO remove
-	// printf(" %ld \n", currTime.tv_sec);
-}
-
 void setupTimeAndLog(){
 	
 	gettimeofday(&programStartTime, NULL);
@@ -70,12 +52,7 @@ void printFuncCall(const char funcId, const uint64_t data){
 #endif
 }
 
-static inline void closeLogFile(){
-	
-	fclose(logFile);
-}
 
-//#include <string.h>
 void printCpuTimeExit(){
 
 	struct rusage usage;
@@ -83,15 +60,12 @@ void printCpuTimeExit(){
 	long usg_seconds = usage.ru_utime.tv_sec;
 	long usg_useconds = usage.ru_utime.tv_usec;
 	
-	//TODO store in file as binary
 	//printf("User CPU time: %ld.%06ld\nReal time passed:", usg_seconds, usg_useconds);
 	printFuncCall('X', usg_seconds);
 	printFuncCall('X', usg_useconds);
 	
-	//printTimeSinceStart();
 	
-	
-	closeLogFile();
+	fclose(logFile);
 	
 	//printf("i am %d\n", getpid());
 	//char psCommand[40];

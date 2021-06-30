@@ -8,8 +8,8 @@ SRC_C := $(wildcard *.c)
 
 .PHONY: all clean raspberry-run
 
-all: embedded_final_hw
-#	gcc embedded_final_hw.c -lrt -o emb_hw
+all: embedded_final_hw raspberry
+
 
 embedded_final_hw: $(SRC_C) common.h
 

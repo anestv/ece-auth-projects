@@ -71,7 +71,6 @@ void overwriteRecentContact(const macaddress);
 
 // log_time_utils.c
 
-//void printTimeSinceStart();
 void printCpuTimeExit();
 void printFuncCall(const char, const uint64_t);
 void setupTimeAndLog();
