@@ -22,12 +22,13 @@ raspberry: $(SRC_C) common.h
 
 raspberry-run: raspberry
 	scp raspberry pi@192.168.7.2:/home/pi/embedded
-	ssh -t pi@192.168.7.2 timeout -k2 30s embedded/raspberry
+	ssh -t pi@192.168.7.2 "cd embedded; timeout -k2 30s ./raspberry"
+
 # -t to put it in terminal mode, and show live output.
 # timeout: send sigterm after 30s and sigkill after 32s
 
 clean:
 	rm -f embedded_final_hw raspberry
-	rm -f *.bin
+	rm -f upload*.bin
 # -f so that it doesn't throw error when files don't exist
 

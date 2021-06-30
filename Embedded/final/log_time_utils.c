@@ -35,6 +35,7 @@ void setupTimeAndLog(){
 	if (logFile == NULL) {
 		fprintf(stderr, "Error creating log file\n");
 	}
+	setvbuf(logFile, NULL, _IOFBF, 800); // Set buffer length to 800 bytes = 50 prints * 16 bytes/print
 }
 
 /* List of funcIds:

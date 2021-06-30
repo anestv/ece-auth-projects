@@ -7,7 +7,6 @@
 #include "common.h"
 
 
-//TODO remove?
 extern closecontact closeContacts[CLOSE_CONTACTS_LENGTH];
 extern unsigned int closeContactsSize;
 
@@ -71,17 +70,7 @@ int main(){
 	
 	printFuncCall('A', 0); // program start
 	
-	/*for (int i = 0; i < 10; i++){
-		
-		printFuncCall('B', BTnearMe());
-		sleep(1);
-	}
-	
-	// TODO return these to normal
-	printFuncCall('A', (uint64_t)0xFFFFFFFFFFFFF<<(uint64_t)1);
-	//printf("%d  %d\n", sizeof(long long), sizeof(uint64_t));
-	closeLogFile();
-	return 0;*/
+	//srand(time(NULL));
 	
 	/* Establish handler for timer signal */
 	/* struct sigaction sa;
