@@ -7,19 +7,22 @@
 #include <stdio.h>
 #include <time.h>
 
-#define SPEEDUP 40 // TODO revert to 100
+#define SPEEDUP 100
 // run this much faster
 
 #define SEC_PER_PERIOD 10
 #define BT_SCAN_PERIOD_SEC (SEC_PER_PERIOD / SPEEDUP)
 #define BT_SCAN_PERIOD_NSEC ((SEC_PER_PERIOD * (1000000000 / SPEEDUP)) % 1000000000)
 
-#define PROB_COVID_PERCENT 80 // TODO revert to 5 or 10
+#define PROB_COVID_POSITIVE 0.06
 // the (supposed) probability that the user tests positive for covid
 
-#define MAC_PRESET_LIST_LENGTH 100
+#define PROB_GET_PRESET_MAC 0.026
+// the probability to choose from the predefined list of MACs
 
-#define CLOSE_CONTACTS_LENGTH 100
+#define MAC_PRESET_LIST_LENGTH 200
+
+#define CLOSE_CONTACTS_LENGTH 220
 
 #define MAX_SECONDS_FOR_CLOSECONT 1200
 #define RECENT_CONTACTS_LENGTH (MAX_SECONDS_FOR_CLOSECONT / SEC_PER_PERIOD)
@@ -33,7 +36,7 @@
 #define MAX_REALTIME_REMEMBER_CLOSECONT (MAX_SECONDS_REMEMBER_CLOSECONT / SPEEDUP)
 // 14 days * 24*60*60 = 1209600 seconds
 
-#define TESTING_INTERVAL_SECONDS 300// TODO revert to 14400
+#define TESTING_INTERVAL_SECONDS 14400 // 300
 #define TESTING_INTERVAL_PERIODS (TESTING_INTERVAL_SECONDS / SEC_PER_PERIOD)
 // 4 hours = 4*60*60 seconds. / 10 seconds = 1440 periods
 
@@ -57,6 +60,8 @@ bool testCOVID();
 macaddress BTnearMe();
 void uploadContacts(const closecontact * const, int);
 // Notice: The uploadContacts() signature is different than the suggested
+
+// data_structures.c
 
 void cleanOldCloseCont();
 bool isACloseContact(const macaddress);
