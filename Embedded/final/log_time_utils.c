@@ -64,6 +64,8 @@ void printCpuTimeExit(){
 	printFuncCall('X', usg_seconds);
 	printFuncCall('X', usg_useconds);
 	
+	printFuncCall('X', usage.ru_stime.tv_sec);
+	printFuncCall('X', usage.ru_stime.tv_usec);
 	
 	fclose(logFile);
 	

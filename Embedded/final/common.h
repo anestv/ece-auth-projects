@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <time.h>
 
+#ifndef
+#define PRODUCTION
+#endif
+
 #define SPEEDUP 100
 // run this much faster
 
