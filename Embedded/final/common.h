@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#ifndef
+#ifndef PRODUCTION
 #define PRODUCTION
 #endif
 
